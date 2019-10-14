@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ouzy.interview_project.mapper.OrderMapper">
+
+    <!--查询所有可预约时间功能-->
+    <select id="queryOrder" resultType="java.util.HashMap">
+        select *
+        FROM ORDERALL
+        WHERE yy_date between to_char(sysdate + 2, 'yyyymmdd') and
+                  to_char(sysdate + 7, 'yyyymmdd')
+        ORDER BY yy_date, yy_time
+    </select>
+
+    <!--获取预约信息表id-->
+    <select id="queryOrderId" resultType="java.lang.String">
+        SELECT SEQ_ORDERID.NEXTVAL
+        FROM DUAL
+    </select>
+
+    <!--查询某个时间段内可预约次数-->
+    <select id="queryOrderNum" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        select num
+        FROM ORDERALL
+        WHERE yy_date = #{yy_date}
+        AND yy_time = #{yy_time}
+    </select>
+
+    <!--更新可预约信息表-->
+    <update id="updateOrderAll" parameterType="java.util.HashMap">
+        UPDATE orderall set num = (num-1) WHERE yy_date = #{yy_date} AND yy_time = #{yy_time}
+    </update>
+
+    <!--执行预约-->
+    <insert id="doOrder" parameterType="java.util.HashMap">
+        insert into orderinfo(id, yy_date, yy_time, yxbz)
+        values (#{id}, to_char(#{yy_date}), to_char(#{yy_time}), '1')
+    </insert>
+
+</mapper>
