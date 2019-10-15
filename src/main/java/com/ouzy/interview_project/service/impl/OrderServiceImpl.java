@@ -44,11 +44,12 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public String doOrder(String yy_date, String yy_time) {
+    public String doOrder(String name, String yy_date, String yy_time) {
         //获取预约信息表id
-        String id = orderMapper.queryOrderId();
+        //String id = orderMapper.queryOrderId();
         Map map = new HashMap();
-        map.put("id",id);
+        //map.put("id",id);
+        map.put("name",name);//预约人
         map.put("yy_date",yy_date);//预约日期
         map.put("yy_time",yy_time);//预约时间段
 

@@ -23,5 +23,5 @@ public interface OrderService {
      * @param yy_time
      * @return
      */
-    public String doOrder(String yy_date, String yy_time);
+    public String doOrder(String name, String yy_date, String yy_time);
 }

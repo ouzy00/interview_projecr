@@ -4,11 +4,14 @@
 
     <!--查询所有可预约时间功能-->
     <select id="queryOrder" resultType="java.util.HashMap">
-        select *
+        /*select *
         FROM ORDERALL
         WHERE yy_date between to_char(sysdate + 2, 'yyyymmdd') and
                   to_char(sysdate + 7, 'yyyymmdd')
-        ORDER BY yy_date, yy_time
+        ORDER BY yy_date, yy_time*/
+        SELECT * FROM orderall
+        WHERE yy_date between date_format(date_sub(curdate(),interval -2 day),'%Y%m%d')
+            and date_format(date_sub(curdate(),interval -7 day),'%Y%m%d')
     </select>
 
     <!--获取预约信息表id-->
@@ -32,8 +35,8 @@
 
     <!--执行预约-->
     <insert id="doOrder" parameterType="java.util.HashMap">
-        insert into orderinfo(id, yy_date, yy_time, yxbz)
-        values (#{id}, to_char(#{yy_date}), to_char(#{yy_time}), '1')
+        insert into orderinfo(name, yy_date, yy_time, yxbz)
+        values (#{name}, #{yy_date}, #{yy_time}, '1')
     </insert>
 
 </mapper>
