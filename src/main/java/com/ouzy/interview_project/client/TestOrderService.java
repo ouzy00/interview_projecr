@@ -28,7 +28,11 @@ public class TestOrderService {
         try{
             Object[] objects = new Object[0];
             // invoke("方法名",参数1,参数2,参数3....);
-            objects = client.invoke("queryOrder");
+            // 功能1：查询所有可预约时间段
+//          objects = client.invoke("queryOrder");
+//          System.out.println("返回数据:" + objects[0]);
+            // 功能2：执行预约操作
+            objects = client.invoke("doOrder","abc","20191017","1000");
             System.out.println("返回数据:" + objects[0]);
         }catch (Exception e){
             e.printStackTrace();
